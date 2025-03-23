@@ -38,7 +38,7 @@ export default function ResetPassword() {
       } else {
         setError(data.message);
       }
-    } catch (err) {
+    } catch {
       setError('An unexpected error occurred');
     }
   };

@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     let decoded;
     try {
       decoded = jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
-    } catch (err) {
+    } catch {
       return NextResponse.json({ message: 'Invalid or expired token' }, { status: 400 });
     }
 
@@ -58,6 +58,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: 'Password reset successfully' }, { status: 200 });
   } catch (error) {
     console.error('Error resetting password:', error);
-    return NextResponse.json({ message: 'Failed to reset password', error: error.message }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to reset password', error: (error as Error).message }, { status: 500 });
   }
 }

@@ -69,7 +69,7 @@ export default function Home() {
       setError('');
       setSuccessMessage('');
       fetchTasks(token);
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Authentication failed.');
       setSuccessMessage('');
       setResetLink('');
@@ -94,9 +94,9 @@ export default function Home() {
 
       const data = await response.json();
       setError('');
-      setSuccessMessage(''); // Clear success message; AuthForm will handle messaging
+      setSuccessMessage('');
       setResetLink(data.resetLink);
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Failed to process reset request.');
       setSuccessMessage('');
       setResetLink('');
@@ -136,7 +136,7 @@ export default function Home() {
       setTasks([...tasks, createdTask]);
       setError('');
       setSuccessMessage('');
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Failed to add task. Please try again.');
       setSuccessMessage('');
       setResetLink('');
@@ -172,7 +172,7 @@ export default function Home() {
       setTasks(tasks.map((task) => (task._id === id ? updatedTask : task)));
       setError('');
       setSuccessMessage('');
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Failed to update task. Please try again.');
       setSuccessMessage('');
       setResetLink('');
@@ -200,7 +200,7 @@ export default function Home() {
       setTasks(tasks.filter((task) => task._id !== id));
       setError('');
       setSuccessMessage('');
-    } catch (err: any) {
+    } catch (err: Error) {
       setError(err.message || 'Failed to delete task. Please try again.');
       setSuccessMessage('');
       setResetLink('');

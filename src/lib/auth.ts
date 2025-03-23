@@ -8,7 +8,7 @@ export function verifyToken(req: NextRequest): { id: string } | null {
 
   try {
     return jwt.verify(token, process.env.JWT_SECRET!) as { id: string };
-  } catch (err) {
+  } catch {
     return null;
   }
 }
