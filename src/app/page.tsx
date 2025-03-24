@@ -124,7 +124,7 @@ export default function Home() {
 
       const taskWithUser = {
         ...newTask,
-        user: user.id, // Updated to user.id based on your User type
+        user: user._id, // Updated to user.id based on your User type
       };
 
       const response = await fetch('/api/tasks', {
