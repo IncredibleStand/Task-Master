@@ -3,8 +3,9 @@
 import { useState, FormEvent } from 'react';
 import { Task } from '@/types';
 
+// Adjust the prop type to exclude 'user' and '_id' from Task
 interface AddTaskFormProps {
-  onAddTask: (task: Omit<Task, '_id'>) => void;
+  onAddTask: (task: Omit<Task, '_id' | 'user'>) => void;
 }
 
 export default function AddTaskForm({ onAddTask }: AddTaskFormProps) {

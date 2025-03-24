@@ -116,10 +116,16 @@ export default function Home() {
     setResetLink('');
   };
 
-  const addTask = async (newTask: Omit<Task, '_id'>) => {
+  const addTask = async (newTask: Omit<Task, '_id' | 'user'>) => {
     try {
       const token = localStorage.getItem('token');
       if (!token) throw new Error('No token found. Please log in again.');
+      if (!user) throw new Error('No user found. Please log in again.');
+
+      const taskWithUser = {
+        ...newTask,
+        user: user._id, // Assuming user has an _id field
+      };
 
       const response = await fetch('/api/tasks', {
         method: 'POST',
@@ -127,7 +133,7 @@ export default function Home() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify(newTask),
+        body: JSON.stringify(taskWithUser),
       });
 
       if (!response.ok) {
