@@ -11,6 +11,8 @@
   "dependencies": {
     "@sendinblue/client": "^3.3.1",
     "@tailwindcss/postcss": "^4.0.15",
+    "@vercel/analytics": "^1.5.0",
+    "@vercel/speed-insights": "^1.2.0",
     "bcryptjs": "^3.0.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.2",
