@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     );
   } catch (error) {
     console.error('Error generating reset link:', error);
-    return NextResponse.json({ message: 'Failed to generate reset link', error: error.message }, { status: 500 });
+    return NextResponse.json({ message: 'Failed to generate reset link', error: (error as Error).message }, { status: 500 });
   } finally {
     console.log('Closing MongoDB connection...');
     await mongoose.connection.close();
