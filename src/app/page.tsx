@@ -124,7 +124,7 @@ export default function Home() {
 
       const taskWithUser = {
         ...newTask,
-        user: user._id, // Assuming user has an _id field
+        user: user.id, // Updated to user.id based on your User type
       };
 
       const response = await fetch('/api/tasks', {
@@ -229,11 +229,23 @@ export default function Home() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
-        <Link href="/" onClick={handleHomeClick}>
-          TaskMaster
-        </Link>
-      </h1>
+      {/* Conditional Header */}
+      {user ? (
+        <header className="flex justify-between items-center mb-8">
+          <Link href="/" onClick={handleHomeClick}>
+            <span className="text-2xl font-bold text-blue-600">TaskMaster</span>
+          </Link>
+          <div className="text-lg text-gray-700">
+            Welcome, {user.email}
+          </div>
+        </header>
+      ) : (
+        <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
+          <Link href="/" onClick={handleHomeClick}>
+            TaskMaster
+          </Link>
+        </h1>
+      )}
 
       {!user && !showAuth && (
         <div className="max-w-3xl mx-auto text-center mb-12 bg-gradient-to-r from-blue-50 to-green-50 p-8 rounded-lg shadow-lg">
