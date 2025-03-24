@@ -38,8 +38,9 @@ export default function Home() {
       const data = await response.json();
       setTasks(data);
       setError('');
-    } catch (err) {
-      setError('Failed to load tasks. Please try again later.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to load tasks. Please try again later.';
+      setError(errorMessage);
       console.error('Fetch tasks error:', err);
     } finally {
       setIsLoading(false);
@@ -69,8 +70,9 @@ export default function Home() {
       setError('');
       setSuccessMessage('');
       fetchTasks(token);
-    } catch (err: Error) {
-      setError(err.message || 'Authentication failed.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Authentication failed.';
+      setError(errorMessage);
       setSuccessMessage('');
       setResetLink('');
       console.error('HandleAuth error:', err);
@@ -96,8 +98,9 @@ export default function Home() {
       setError('');
       setSuccessMessage('');
       setResetLink(data.resetLink);
-    } catch (err: Error) {
-      setError(err.message || 'Failed to process reset request.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to process reset request.';
+      setError(errorMessage);
       setSuccessMessage('');
       setResetLink('');
       console.error('Reset request error:', err);
@@ -136,8 +139,9 @@ export default function Home() {
       setTasks([...tasks, createdTask]);
       setError('');
       setSuccessMessage('');
-    } catch (err: Error) {
-      setError(err.message || 'Failed to add task. Please try again.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to add task. Please try again.';
+      setError(errorMessage);
       setSuccessMessage('');
       setResetLink('');
       console.error('Add task error:', err);
@@ -172,8 +176,9 @@ export default function Home() {
       setTasks(tasks.map((task) => (task._id === id ? updatedTask : task)));
       setError('');
       setSuccessMessage('');
-    } catch (err: Error) {
-      setError(err.message || 'Failed to update task. Please try again.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to update task. Please try again.';
+      setError(errorMessage);
       setSuccessMessage('');
       setResetLink('');
       console.error('Toggle status error:', err);
@@ -200,8 +205,9 @@ export default function Home() {
       setTasks(tasks.filter((task) => task._id !== id));
       setError('');
       setSuccessMessage('');
-    } catch (err: Error) {
-      setError(err.message || 'Failed to delete task. Please try again.');
+    } catch (err: unknown) {
+      const errorMessage = err instanceof Error ? err.message : 'Failed to delete task. Please try again.';
+      setError(errorMessage);
       setSuccessMessage('');
       setResetLink('');
       console.error('Delete task error:', err);
