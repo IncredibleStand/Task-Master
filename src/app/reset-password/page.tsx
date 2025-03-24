@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function ResetPassword() {
+// Separate the logic that uses useSearchParams into a component
+function ResetPasswordContent() {
   const [token, setToken] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -82,5 +83,14 @@ export default function ResetPassword() {
         </div>
       )}
     </div>
+  );
+}
+
+// Export the page with Suspense wrapper
+export default function ResetPassword() {
+  return (
+    <Suspense fallback={<div className="text-center py-6">Loading...</div>}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
