@@ -17,7 +17,10 @@ export default function TaskList({ tasks, onToggleStatus, onDeleteTask }: TaskLi
     if (a.priority !== b.priority) {
       return priorityOrder[a.priority] - priorityOrder[b.priority];
     }
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    // Handle undefined createdAt by defaulting to a far future date (or another logic)
+    const aDate = a.createdAt ? new Date(a.createdAt).getTime() : Number.MAX_SAFE_INTEGER;
+    const bDate = b.createdAt ? new Date(b.createdAt).getTime() : Number.MAX_SAFE_INTEGER;
+    return bDate - aDate;
   });
 
   if (tasks.length === 0) {
@@ -49,11 +52,17 @@ export default function TaskList({ tasks, onToggleStatus, onDeleteTask }: TaskLi
               </div>
               <div className="ml-3 flex-1">
                 <div className="flex items-center justify-between">
-                  <h3 className={`text-lg font-semibold ${task.completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                  <h3
+                    className={`text-lg font-semibold ${
+                      task.completed ? 'line-through text-gray-400' : 'text-gray-900'
+                    }`}
+                  >
                     {task.title}
                   </h3>
                   <div className="flex items-center">
-                    <span className={`text-xs px-2 py-1 rounded-full ${priorityColors[task.priority]}`}>
+                    <span
+                      className={`text-xs px-2 py-1 rounded-full ${priorityColors[task.priority]}`}
+                    >
                       {task.priority.charAt(0).toUpperCase() + task.priority.slice(1)}
                     </span>
                     <button
@@ -61,23 +70,40 @@ export default function TaskList({ tasks, onToggleStatus, onDeleteTask }: TaskLi
                       className="ml-2 text-red-500 hover:text-red-700"
                       aria-label="Delete task"
                     >
-                      <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      <svg
+                        className="h-5 w-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
                       </svg>
                     </button>
                   </div>
                 </div>
                 {task.description && (
-                  <p className={`mt-1 text-sm ${task.completed ? 'text-gray-400' : 'text-gray-500'}`}>
+                  <p
+                    className={`mt-1 text-sm ${
+                      task.completed ? 'text-gray-400' : 'text-gray-500'
+                    }`}
+                  >
                     {task.description}
                   </p>
                 )}
                 <div className="mt-1 text-xs text-gray-400">
-                  {new Date(task.createdAt).toLocaleDateString('en-US', {
-                    year: 'numeric',
-                    month: 'short',
-                    day: 'numeric',
-                  })}
+                  {task.createdAt
+                    ? new Date(task.createdAt).toLocaleDateString('en-US', {
+                        year: 'numeric',
+                        month: 'short',
+                        day: 'numeric',
+                      })
+                    : 'Date not set'}
                 </div>
               </div>
             </div>
