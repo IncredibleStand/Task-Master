@@ -124,7 +124,7 @@ export default function Home() {
 
       const taskWithUser = {
         ...newTask,
-        user: user._id, // Updated to user.id based on your User type
+        user: user.id,
       };
 
       const response = await fetch('/api/tasks', {
@@ -231,18 +231,18 @@ export default function Home() {
     <main className="container mx-auto px-4 py-8">
       {/* Conditional Header */}
       {user ? (
-        <header className="flex justify-between items-center mb-8">
+        <header className="flex flex-col sm:flex-row justify-between items-center mb-8 space-y-4 sm:space-y-0">
           <Link href="/" onClick={handleHomeClick}>
-            <span className="text-2xl font-bold text-blue-600">TaskMaster</span>
+            <span className="text-xl sm:text-2xl font-bold text-blue-600">Task Master</span>
           </Link>
-          <div className="text-lg text-gray-700">
+          <div className="text-base sm:text-lg text-gray-700 text-center sm:text-right">
             Welcome, {user.email}
           </div>
         </header>
       ) : (
         <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">
           <Link href="/" onClick={handleHomeClick}>
-            TaskMaster
+            Task Master
           </Link>
         </h1>
       )}
@@ -250,10 +250,10 @@ export default function Home() {
       {!user && !showAuth && (
         <div className="max-w-3xl mx-auto text-center mb-12 bg-gradient-to-r from-blue-50 to-green-50 p-8 rounded-lg shadow-lg">
           <h2 className="text-4xl font-extrabold text-gray-800 mb-4 animate-fade-in">
-            Unleash Your Productivity with TaskMaster
+            Unleash Your Productivity with Task Master
           </h2>
           <p className="text-lg text-gray-600 mb-6 leading-relaxed">
-            Say goodbye to chaos and hello to control! TaskMaster helps you
+            Say goodbye to chaos and hello to control! Task Master helps you
             organize your life, crush your goals, and stay on top of every task
             with ease. Ready to master your day?
           </p>
