@@ -260,13 +260,13 @@ export default function Home() {
           <div className="flex justify-center gap-4">
             <button
               onClick={() => setShowAuth('signup')}
-              className="bg-green-500 text-white py-2 px-6 rounded-full hover:bg-green-600 transition duration-300"
+              className="bg-green-700 text-white py-2 px-6 rounded-full hover:bg-green-800 transition duration-300"
             >
               Get Started
             </button>
             <button
               onClick={() => setShowAuth('login')}
-              className="bg-blue-500 text-white py-2 px-6 rounded-full hover:bg-blue-600 transition duration-300"
+              className="bg-blue-700 text-white py-2 px-6 rounded-full hover:bg-blue-800 transition duration-300"
             >
               Log In
             </button>
